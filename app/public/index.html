@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html ng-app="app">
+<html ng-app="PassportApp">
 <head>
 	<title>My to-do list</title>
 	<meta charset="utf-8">
@@ -10,7 +10,17 @@
 
 </head>
 <body>
-	<div data-ng-view=""></div>
+	<nav ng-controller="NavCtrl">
+		<a href="#/!">Home</a> |
+		<span ng-show="!currentUser">
+			<a href="#!login">Login</a>
+		</span>
+		<span ng-show="currentUser">
+			<a href="#!todos">My to-dos</a>
+			<a href="#!logout" ng-click="logout()">Logout</a>
+		 </span>
+	</nav>
+	<div ng-view=""></div>
 
 		<!-- Libraries -->
 	<script type="text/javascript" src="js/libs/jquery-3.2.1.min.js"></script>
@@ -19,7 +29,7 @@
 	<script type="text/javascript" src="js/libs/angular-resource.min.js"></script>
 
 	<!-- Scripts -->
-	<script src="js/app.js"></script>
-	<script src="js/index.js"></script>
+	<script src="./js/app.js" type="text/javascript"></script>
+	<script src="./js/controllers.js" type="text/javascript"></script>
 </body>
 </html>

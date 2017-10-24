@@ -1,7 +1,7 @@
 //Express
 var express = require('express');
 var app = express();
-app.use(express.static(__dirname + './public'));
+app.use(express.static('./public'));
 
 //Passport
 var passport = require('passport');
@@ -11,7 +11,9 @@ require('./config/passport')(passport); // pass passport for configuration
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 app.use(session({
-  secret: 'this is the secret'
+  secret: 'this is the secret',
+  resave: true,
+	saveUninitialized: true
 }));
 app.use(cookieParser());
 app.use(passport.initialize());

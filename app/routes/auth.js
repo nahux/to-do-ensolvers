@@ -1,4 +1,4 @@
-var db = require("../models");
+//var db = require("../models");
 
 module.exports = function(app, passport) {
     // process the login form
@@ -9,14 +9,15 @@ module.exports = function(app, passport) {
     // handle logout
     app.post("/logout", function(req, res) {
       req.logOut();
-      res.send(200);
+      res.sendStatus(200);
     })
 
     // loggedin
     app.get("/loggedin", function(req, res) {
-      res.send(req.isAuthenticated() ? req.user : '0');
+      res.send(req.isAuthenticated() ? req.user : false);
     });
-
+    
+    /*
     // signup
     app.post("/signup", function(req, res) {
       db.User.findOne({
@@ -39,5 +40,5 @@ module.exports = function(app, passport) {
           });
         }
       });
-    });
+    });*/
 };
