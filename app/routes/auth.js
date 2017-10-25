@@ -9,7 +9,7 @@ module.exports = function(app, passport) {
     // handle logout
     app.post("/logout", function(req, res) {
       req.logOut();
-      res.sendStatus(200);
+      res.status(200);
     })
 
     // loggedin

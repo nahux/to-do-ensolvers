@@ -31,7 +31,43 @@ app.controller("LoginCtrl", function($location, $scope, $http, $rootScope) {
 				$rootScope.currentUser = response;
 				$location.url("/todos");
 			}).catch(function onError(response) {
-				$rootScope.errorMessage = 'Usuario y/o contraseña incorrecto/s';
+				$rootScope.errorMessage = 'User and password combination incorrect.';
 			});
 	}
+});
+
+
+////TODOS
+
+app.controller("TodosCtrl", function($location, $scope, $http, $rootScope) {
+	$scope.todos = [];
+	$scope.refreshTodos = function() {
+		$http.get('/todos')
+			.then(function onSuccess(response) {
+				$scope.todos = response.data;
+			}).catch(function onError(response) {
+				alert('Ha ocurrido un error: '+response.data);
+			});
+	}
+
+	$scope.refreshTodos();
+
+
+});
+
+app.controller("TodoCtrl", function($location, $scope, $http, $rootScope, $routeParams) {
+	$scope.todo = {};
+	$scope.refreshTodo = function() {
+		$http.get('/todos/' + $routeParams.id)
+			.then(function onSuccess(response) {
+				$scope.todo = response.data;
+				$scope.todo.date = new Date(response.data.date);
+			}).catch(function onError(response) {
+				alert('Ha ocurrido un error: '+response.data);
+			});
+	}
+
+	$scope.refreshTodo();
+
+
 });
