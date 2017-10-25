@@ -20,11 +20,24 @@ app.config(function($routeProvider) {
 				logincheck: checkLoggedin
 			}
 		})
+		.when('/todos/new', {
+			templateUrl: 'views/todo.html',
+			controller: 'TodoCtrl',
+			resolve: {
+				logincheck: checkLoggedin,
+				"type": function() {
+					return 'new'
+				}
+			}
+		})
 		.when('/todos/:id?', {
 			templateUrl: 'views/todo.html',
 			controller: 'TodoCtrl',
 			resolve: {
-				logincheck: checkLoggedin
+				logincheck: checkLoggedin,
+				"type": function() {
+					return 'update'
+				}
 			}
 		})
 		.otherwise({
@@ -35,17 +48,18 @@ app.config(function($routeProvider) {
 var checkLoggedin = function($q, $timeout, $http, $location, $rootScope) {
 	var deferred = $q.defer();
 
-	$http.get('/loggedin').then(function onSuccess(response) {
-		$rootScope.errorMessage = null;
-		//User is Authenticated
-		if (response.data) {
-			$rootScope.currentUser = response.data;
-			deferred.resolve();
-		} else { //User is not Authenticated
-			$rootScope.errorMessage = 'You need to log in.';
-			deferred.reject();
-			$location.url('/login');
-		}
-	});
+	$http.get('/loggedin')
+		.then(function onSuccess(response) {
+			$rootScope.errorMessage = null;
+			//User is Authenticated
+			if (response.data) {
+				$rootScope.currentUser = response.data;
+				deferred.resolve();
+			} else { //User is not Authenticated
+				$rootScope.errorMessage = 'You need to log in.';
+				deferred.reject();
+				$location.url('/login');
+			}
+		});
 	return deferred.promise;
 }

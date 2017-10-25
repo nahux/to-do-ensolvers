@@ -1,13 +1,19 @@
 <div class="todoWindow">
+
+	<h2>Edit Task</h2>
+
 	<label for="title">Title</label>
-	<input type="text" maxlength="50" ng-model="todo.title">
+	<input type="text" maxlength="50" placeholder="Enter title here" ng-model="todo.title"><br>
 
 	<label for="date">Due Date</label>
-	<input type="date" ng-model="todo.date">
+	<input type="date" ng-model="todo.date"><br>
 
 	<label for="desc">Description</label>
-	<input type="text" placeholder="Enter description here" ng-model="todo.desc" >
+	<textarea rows="4" cols="50" placeholder="Enter description here" ng-model="todo.desc">
+	</textarea><br>
 	
-	<input type="checkbox" ng-model="todo.done"> Done
+	<input type="checkbox" ng-model="todo.done"> Done <br>
 
+	<button><a href="#!todos">Cancel</a></button>
+	<button ng-click="saveTodo(todo)">Save</button>
 </div>

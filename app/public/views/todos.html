@@ -2,16 +2,17 @@
 	<h1>My to-do list</h1>
 
 	<div class="todo-list">
+	 	<span ng-show="!todos">
+	 		<p>Nothing to see over here...</p>
+	 	</span>
 		<ul>
 			<li ng-repeat="todo in todos">
 				{{todo.title}}
-				<a href="#!todos/{{todo.id}}"> Editar</a>
+				<a href="#!todos/{{todo.id}}"> Edit</a>
+				<button ng-click="removeTodo(todo)"> Remove</button>
 			</li>
 		</ul>
 	</div>
-	<button>Create new to-do item</button>
+	<button><a href="#!todos/new">Create new to-do item</a></button>
 
-	<h1>Profile</h1>
-
-	<h3>User: {{ currentUser.username }}</h3>
 </div>
