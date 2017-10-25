@@ -1,12 +1,16 @@
-app.controller("NavCtrl", function($rootScope, $scope, $http, $location) {
+app.controller("NavCtrl", function($rootScope, $scope, $http, $location, $route, $q) {
 	$scope.logout = function() {
+		var deferred = $q.defer();
+
 		$http.post("/logout")
-			.then(function onSuccess() {
-				$rootScope.currentUser = null;
-				$location.url("/");
-			}).catch(function onError(response) {
-				alert(response.data);
+			.then(function(result) {
+				deferred.resolve(result);
+			}, function(error){
+				deferred.reject(error);
 			});
+		$route.reload();
+		$rootScope.currentUser = null;
+		$location.url("/login");
 	}
 });
 
